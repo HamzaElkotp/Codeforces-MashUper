@@ -1,6 +1,6 @@
 // Fetch problems from the server
 async function fetchProblems(topic, minRating, maxRating, numProblems) {
-  const response = await fetch('/fetch-problems', {
+  const response = await fetch('/.netlify/functions/api/fetch-problems', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -1,14 +1,15 @@
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const path = require("path");
+const serverless = require("serverless-http");
+
 
 const app = express();
-const PORT = 3000;
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+const router = express.Router();
 
-// Endpoint to fetch problems from Codeforces API
-app.post('/fetch-problems', async (req, res) => {
+
+router.post('/fetch-problems', async (req, res) => {
   const { topic, minRating, maxRating, numProblems } = req.body;
 
   try {
@@ -43,6 +44,13 @@ app.post('/fetch-problems', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+router.get("/test", (req, res) => {
+  res.json({
+    hello: "hi!"
+  });
 });
+
+app.use(`/.netlify/functions/api`, router);
+
+module.exports = app;
+module.exports.handler = serverless(app);
