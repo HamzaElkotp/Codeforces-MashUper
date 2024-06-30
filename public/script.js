@@ -1,19 +1,24 @@
 // Fetch problems from the server
 async function fetchProblems(topic, minRating, maxRating, numProblems) {
-  const response = await fetch('/.netlify/functions/api/fetch-problems', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ topic, minRating, maxRating, numProblems })
-  });
+  const response = await fetch('/problems.json');
+
   const data = await response.json();
-  if (response.ok) {
-    return data;
-  } else {
-    alert(data.error);
-    return [];
+
+  const problems = data.result.problems.filter(problem =>
+    problem.tags.includes(topic) &&
+    problem.rating >= minRating &&
+    problem.rating <= maxRating
+  );
+
+  const mashup = [];
+  for (let i = 0; i < numProblems; i++) {
+    const randomIndex = Math.floor(Math.random() * problems.length);
+    mashup.push(problems[randomIndex]);
+    problems.splice(randomIndex, 1);
   }
+
+  mashup.sort((a, b) => a.rating - b.rating);
+  return mashup;
 }
 
 // Update the problems table
@@ -24,12 +29,12 @@ function updateTable(problems) {
     const tr = document.createElement('tr');
     tr.className = problem.solved ? 'solved' : '';
     tr.innerHTML = `
-        <td>${problem.name}</td>
-        <td>${problem.contestId}-${problem.index}</td>
-        <td><a href="https://codeforces.com/contest/${problem.contestId}/problem/${problem.index}" target="_blank">Link</a></td>
-        <td>${problem.rating}</td>
-        <td><input type="checkbox" ${problem.solved ? 'checked' : ''} data-index="${index}"></td>
-      `;
+      <td>${problem.name}</td>
+      <td>${problem.contestId}-${problem.index}</td>
+      <td><a href="https://codeforces.com/contest/${problem.contestId}/problem/${problem.index}" target="_blank">Link</a></td>
+      <td>${problem.rating}</td>
+      <td><input type="checkbox" ${problem.solved ? 'checked' : ''} data-index="${index}"></td>
+    `;
     tbody.appendChild(tr);
   });
 }
