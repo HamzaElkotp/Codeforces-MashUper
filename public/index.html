@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codeforces Mashup Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <style>
+    .solved {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Codeforces Mashup Generator</h1>
+      <div class="field">
+        <label class="label">Topic</label>
+        <div class="control">
+          <input id="topic" class="input" type="text" placeholder="Enter topic">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Number of Problems</label>
+        <div class="control">
+          <input id="number" class="input" type="number" placeholder="Enter number of problems">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Minimum Rating</label>
+        <div class="control">
+          <input id="minRating" class="input" type="number" placeholder="Enter minimum rating">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Maximum Rating</label>
+        <div class="control">
+          <input id="maxRating" class="input" type="number" placeholder="Enter maximum rating">
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <button id="generate" class="button is-primary">Generate Mashup</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <button id="save" class="button is-link">Save Mashup</button>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Saved Mashups</label>
+        <div class="control">
+          <div class="select">
+            <select id="savedMashups"></select>
+          </div>
+          <button id="load" class="button is-info">Load Mashup</button>
+        </div>
+      </div>
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Link</th>
+            <th>Rating</th>
+            <th>Solved</th>
+          </tr>
+        </thead>
+        <tbody id="problemsTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
