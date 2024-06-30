@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@netlify/functions": "^2.8.0",
+    "@types/express": "^4.17.21",
     "express": "^4.19.2",
     "netlify-lambda": "^2.0.16",
+    "path": "^0.12.7",
     "serverless-http": "^3.2.0"
   }
 }

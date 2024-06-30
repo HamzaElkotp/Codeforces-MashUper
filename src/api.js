@@ -1,13 +1,11 @@
 const express = require("express");
 const path = require("path");
 const serverless = require("serverless-http");
-
+const router = express.Router();
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-const router = express.Router();
-
 
 router.post('/fetch-problems', async (req, res) => {
   const { topic, minRating, maxRating, numProblems } = req.body;
@@ -52,5 +50,4 @@ router.get("/test", (req, res) => {
 
 app.use(`/.netlify/functions/api`, router);
 
-module.exports = app;
 module.exports.handler = serverless(app);
